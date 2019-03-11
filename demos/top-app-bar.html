@@ -76,7 +76,7 @@ limitations under the License.
 
   <main>
     <div id="controls">
-      Type: <select>
+      Type: <select id="type">
         <option value="">Standard</option>
         <option value="fixed">Fixed</option>
         <option value="prominent">Prominent</option>
@@ -84,8 +84,11 @@ limitations under the License.
         <option value="short">Short</option>
         <option value="shortCollapsed">Short Collapsed</option>
       </select>
+      Align title: <select id="align-title">
+        <option value="left">Left</option>
+        <option value="center">Center</option>
+      </select>
       <label><input id="dense" type="checkbox"> Dense</label>
-      <label><input id="centerTitle" type="checkbox"> Center Title</label>
     </div>
     <div class="view">
       <mwc-top-app-bar>
@@ -129,13 +132,16 @@ limitations under the License.
     const bar = document.querySelector('mwc-top-app-bar');
     bar.scrollTarget = bar.nextElementSibling;
 
-    controls.querySelector('select').addEventListener('change', (e) => {
+    controls.querySelector('#type').addEventListener('change', (e) => {
       bar.type = e.target.value;
       title.textContent = e.target.selectedOptions[0].textContent;
     });
 
+    controls.querySelector('#align-title').addEventListener('change', (e) => {
+      bar.alignTitle = e.target.value;
+    });
+
     dense.addEventListener('change', (e) => bar.dense = e.target.checked);
-    centerTitle.addEventListener('change', (e) => bar.centerTitle = e.target.checked);
   </script>
 </body>
 </html>

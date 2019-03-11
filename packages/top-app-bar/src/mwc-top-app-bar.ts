@@ -61,8 +61,9 @@ export class TopAppBar extends BaseElement {
   @property({type: Boolean, reflect: true})
   dense = false;
 
-  @property({type: Boolean, reflect: true})
-  centerTitle = false;
+  // alignTitle can be 'left' || 'center'
+  @property({reflect: true})
+  alignTitle = 'left';
 
   private _scrollTarget!: HTMLElement|Window;
 
@@ -88,12 +89,12 @@ export class TopAppBar extends BaseElement {
       'mdc-top-app-bar--short-collapsed': this.type === 'shortCollapsed',
       'mdc-top-app-bar--prominent': this.type === 'prominent' || this.type === 'prominentFixed',
       'mdc-top-app-bar--dense': this.dense,
-      'mwc-top-app-bar--center-title': this.centerTitle
+      'mwc-top-app-bar--center-title': this.alignTitle === 'center'
     };
-    const alignStartTitle = !this.centerTitle ? html`
+    const alignStartTitle = this.alignTitle !== 'center' ? html`
       <span class="mdc-top-app-bar__title"><slot name="title"></slot></span>
     ` : '';
-    const centerSection = this.centerTitle ? html`
+    const centerSection = this.alignTitle === 'center' ? html`
       <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-center">
         <span class="mdc-top-app-bar__title"><slot name="title"></slot></span>
       </section>` : '';
